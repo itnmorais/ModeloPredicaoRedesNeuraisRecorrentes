@@ -80,6 +80,25 @@ ypredicted <- t(ypredicted)
 result_data <- data.frame(ytest)
 result_data$ypredicted <- ypredicted
 
-result_data <- rename(result_data,
-                      Temp_real = 1,
-                      Temp_predita = 2)
+
+#14 - Plotando o resultado obtido
+plot(as.vector(t(result_data$ytest)), col='red', type='l',
+     main = 'Actual vs Predicted Temperature: testing set',
+     ylab = 'y,ypredicted')
+lines(as.vector(t(ypredicted)), type = 'l', col='black')
+legend('bottomright', c('Predicted', 'Actual'),
+       col = c('red','black'),
+       lty = c(1,1), lwd = c(1,1))
+
+#15 - Percentual de variação de uma variável explicada por outra
+
+rsq <- function(y_actual, y_predict) {
+  cor(y_actual, y_predict)^2
+}
+
+
+rsq(result_data$ytest, result_data$ypredicted)
+
+mean(result_data$ytest)
+mean(result_data$ypredicted)
+
